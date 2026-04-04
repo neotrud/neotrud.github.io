@@ -733,31 +733,41 @@
       font-weight: 600;
       transition: background 0.15s;
     }
-    .photo-upload-label:hover { background: var(--cemig-light); }
-    .photo-upload-label input[type="file"] { display: none; }
+
+    .photo-upload-label:hover {
+      background: var(--cemig-light);
+    }
+
+    .photo-upload-label input[type="file"] {
+      display: none;
+    }
+
     .image-preview-container {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 12px;
     }
+
     .image-preview-item {
       position: relative;
     }
+
     .image-preview-item img {
       width: 130px;
       height: 130px;
       object-fit: cover;
       border-radius: 6px;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       display: block;
     }
+
     .image-preview-item .remove-photo {
       position: absolute;
       top: 4px;
       right: 4px;
-      background: rgba(198,40,40,0.85);
+      background: rgba(198, 40, 40, 0.85);
       color: white;
       border: none;
       border-radius: 50%;
@@ -769,8 +779,12 @@
       cursor: pointer;
       padding: 0;
     }
+
     @media print {
-      .photo-upload-label { display: none !important; }
+      .photo-upload-label {
+        display: none !important;
+      }
+
       .image-preview-container img {
         width: 160px;
         height: 160px;
@@ -785,6 +799,7 @@
       display: none;
       margin-top: 6px;
     }
+
     .nc-comment textarea {
       width: 100%;
       min-height: 48px;
@@ -798,12 +813,16 @@
       background: white;
       resize: vertical;
     }
+
     .nc-comment textarea:focus {
       outline: none;
       border-color: var(--cemig-light);
-      box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
     }
-    .nc-comment.visible { display: block; }
+
+    .nc-comment.visible {
+      display: block;
+    }
 
     /* ── SESSION BAR ── */
     .session-bar {
@@ -820,6 +839,7 @@
       gap: 12px;
       flex-wrap: wrap;
     }
+
     .session-bar .session-id {
       font-family: 'IBM Plex Mono', monospace;
       font-weight: 700;
@@ -827,12 +847,20 @@
       font-size: 13px;
       letter-spacing: 1px;
     }
+
     .session-bar .session-status {
       font-size: 11px;
       color: var(--text-light);
     }
-    .session-bar .session-status.saving { color: var(--accent); }
-    .session-bar .session-status.saved  { color: var(--ok); }
+
+    .session-bar .session-status.saving {
+      color: var(--accent);
+    }
+
+    .session-bar .session-status.saved {
+      color: var(--ok);
+    }
+
     .session-bar .session-copy {
       background: none;
       border: 1px solid var(--cemig-light);
@@ -851,6 +879,7 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     .history-title {
       font-size: 13px;
       font-weight: 700;
@@ -859,11 +888,13 @@
       letter-spacing: 1px;
       margin-bottom: 12px;
     }
+
     .history-resume {
       display: flex;
       gap: 10px;
       margin-bottom: 16px;
     }
+
     .history-resume input {
       flex: 1;
       border: 1px solid var(--border);
@@ -873,10 +904,12 @@
       font-size: 13px;
       letter-spacing: 1px;
     }
+
     .history-resume input:focus {
       outline: none;
       border-color: var(--cemig-light);
     }
+
     .history-resume button {
       padding: 8px 18px;
       background: var(--cemig-blue);
@@ -887,7 +920,13 @@
       font-weight: 600;
       cursor: pointer;
     }
-    .history-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .history-item {
       display: flex;
       align-items: center;
@@ -899,17 +938,24 @@
       gap: 12px;
       flex-wrap: wrap;
     }
+
     .history-item .hi-id {
       font-family: 'IBM Plex Mono', monospace;
       font-weight: 700;
       color: var(--cemig-blue);
       font-size: 13px;
     }
+
     .history-item .hi-meta {
       font-size: 11px;
       color: var(--text-light);
     }
-    .history-item .hi-btns { display: flex; gap: 8px; }
+
+    .history-item .hi-btns {
+      display: flex;
+      gap: 8px;
+    }
+
     .history-item .hi-btns button {
       padding: 4px 12px;
       border-radius: 4px;
@@ -920,18 +966,34 @@
       background: white;
       color: var(--text);
     }
+
     .history-item .hi-btns button.resume {
       background: var(--cemig-blue);
       color: white;
       border-color: var(--cemig-blue);
     }
+
     .history-empty {
       font-size: 12px;
       color: var(--text-light);
       text-align: center;
       padding: 16px;
     }
-    @media print { .session-bar { display: none !important; } }
+
+    @media print {
+      .session-bar {
+        display: none !important;
+      }
+    }
+
+    .btn-save {
+      background: #1976d2;
+      color: white;
+    }
+
+    .btn-save:hover {
+      background: #1565c0;
+    }
   </style>
 </head>
 
@@ -983,9 +1045,11 @@
 
     <!-- ═══════════════ FORM: INFRAESTRUTURA ═══════════════ -->
     <div id="form-infra" class="hidden">
-            <div class="session-bar">
+      <div class="session-bar">
         <div>
-          <span style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID da Sessão</span><br>
+          <span
+            style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID
+            da Sessão</span><br>
           <span class="session-id" id="session-id-display">–</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -993,7 +1057,7 @@
           <button class="session-copy" onclick="copySessionId()" title="Copiar ID">📋 Copiar ID</button>
         </div>
       </div>
-<div class="form-header">
+      <div class="form-header">
         <div class="cemig-logo">cemig</div>
         <div>
           <h1>FORMULÁRIO PARA AVALIAÇÃO TÉCNICA EM EMPREITEIRA – ATE</h1>
@@ -1069,7 +1133,8 @@
 
       <div class="card">
         <div class="section-title">Anexos Fotográficos</div>
-        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF gerado.</p>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF
+          gerado.</p>
         <label class="photo-upload-label">
           📷 Selecionar Fotos
           <input type="file" accept="image/*" multiple onchange="handlePhotoUpload(event, 'preview-infra')">
@@ -1081,13 +1146,19 @@
         <div class="section-title">Assinaturas</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-top:24px;margin-bottom:8px;">
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Empregado Inspecionado</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Empregado Inspecionado</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Responsável Local da Contratada</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Responsável Local da Contratada</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Agente de Inspeção</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Agente de Inspeção</div>
           </div>
         </div>
       </div>
@@ -1099,6 +1170,7 @@
           <button class="btn btn-reset" onclick="resetForm('infra')">Limpar</button>
         </div>
         <div class="btn-bar-right">
+          <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
           <button class="btn btn-excel" onclick="exportExcel('infra')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -1107,9 +1179,11 @@
 
     <!-- ═══════════════ FORM: MOTOCICLISTAS ═══════════════ -->
     <div id="form-moto" class="hidden">
-            <div class="session-bar">
+      <div class="session-bar">
         <div>
-          <span style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID da Sessão</span><br>
+          <span
+            style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID
+            da Sessão</span><br>
           <span class="session-id" id="session-id-display">–</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -1117,7 +1191,7 @@
           <button class="session-copy" onclick="copySessionId()" title="Copiar ID">📋 Copiar ID</button>
         </div>
       </div>
-<div class="form-header">
+      <div class="form-header">
         <div class="cemig-logo">CEMIG</div>
         <div>
           <h1>FORMULÁRIO PARA AVALIAÇÃO TÉCNICA EM EMPREITEIRA – ATE</h1>
@@ -1257,7 +1331,8 @@
 
       <div class="card">
         <div class="section-title">Anexos Fotográficos</div>
-        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF gerado.</p>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF
+          gerado.</p>
         <label class="photo-upload-label">
           📷 Selecionar Fotos
           <input type="file" accept="image/*" multiple onchange="handlePhotoUpload(event, 'preview-moto')">
@@ -1269,13 +1344,19 @@
         <div class="section-title">Assinaturas</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-top:24px;margin-bottom:8px;">
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Empregado Inspecionado</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Empregado Inspecionado</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Responsável Local da Contratada</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Responsável Local da Contratada</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Agente de Inspeção</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Agente de Inspeção</div>
           </div>
         </div>
       </div>
@@ -1287,6 +1368,7 @@
           <button class="btn btn-reset" onclick="resetForm('moto')">Limpar</button>
         </div>
         <div class="btn-bar-right">
+          <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
           <button class="btn btn-excel" onclick="exportExcel('moto')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -1295,9 +1377,11 @@
 
     <!-- ═══════════════ FORM: MULTIFUNCIONAL ES2 ═══════════════ -->
     <div id="form-es2" class="hidden">
-            <div class="session-bar">
+      <div class="session-bar">
         <div>
-          <span style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID da Sessão</span><br>
+          <span
+            style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID
+            da Sessão</span><br>
           <span class="session-id" id="session-id-display">–</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -1305,7 +1389,7 @@
           <button class="session-copy" onclick="copySessionId()" title="Copiar ID">📋 Copiar ID</button>
         </div>
       </div>
-<div class="form-header">
+      <div class="form-header">
         <div class="cemig-logo">CEMIG</div>
         <div>
           <h1>FORMULÁRIO PARA AVALIAÇÃO TÉCNICA EM EMPREITEIRA – ATE</h1>
@@ -1515,7 +1599,8 @@
 
       <div class="card">
         <div class="section-title">Anexos Fotográficos</div>
-        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF gerado.</p>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF
+          gerado.</p>
         <label class="photo-upload-label">
           📷 Selecionar Fotos
           <input type="file" accept="image/*" multiple onchange="handlePhotoUpload(event, 'preview-es2')">
@@ -1527,13 +1612,19 @@
         <div class="section-title">Assinaturas</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-top:24px;margin-bottom:8px;">
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Empregado Inspecionado</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Empregado Inspecionado</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Responsável Local da Contratada</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Responsável Local da Contratada</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Agente de Inspeção</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Agente de Inspeção</div>
           </div>
         </div>
       </div>
@@ -1545,6 +1636,7 @@
           <button class="btn btn-reset" onclick="resetForm('es2')">Limpar</button>
         </div>
         <div class="btn-bar-right">
+          <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
           <button class="btn btn-excel" onclick="exportExcel('es2')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -1554,9 +1646,11 @@
 
     <!-- ═══════════════ FORM: PARTE AMBIENTAL ═══════════════ -->
     <div id="form-amb" class="hidden">
-            <div class="session-bar">
+      <div class="session-bar">
         <div>
-          <span style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID da Sessão</span><br>
+          <span
+            style="font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;">ID
+            da Sessão</span><br>
           <span class="session-id" id="session-id-display">–</span>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -1564,7 +1658,7 @@
           <button class="session-copy" onclick="copySessionId()" title="Copiar ID">📋 Copiar ID</button>
         </div>
       </div>
-<div class="form-header">
+      <div class="form-header">
         <div class="cemig-logo">CEMIG</div>
         <div>
           <h1>FORMULÁRIO PARA AVALIAÇÃO TÉCNICA EM EMPREITEIRA – ATE</h1>
@@ -1581,7 +1675,8 @@
           <div class="field"><label>Município</label><input type="text" data-field="amb-municipio"></div>
         </div>
         <div class="grid g2">
-          <div class="field"><label>Técnico de Meio Ambiente da Contratada</label><input type="text" data-field="amb-tecnico"></div>
+          <div class="field"><label>Técnico de Meio Ambiente da Contratada</label><input type="text"
+              data-field="amb-tecnico"></div>
           <div class="field"><label>CRT Nº</label><input type="text" data-field="amb-crt"></div>
         </div>
       </div>
@@ -1598,10 +1693,12 @@
         <div class="checklist-item">
           <input type="radio" name="amb-agua" id="amb-agua-2" value="cisterna">
           <label for="amb-agua-2">É feito por cisterna, poço artesiano ou qualquer outra forma subterrânea.<br>
-            <span class="checklist-sub">Evidência: Certidão de Registro de Uso Insignificante de Recurso Hídrico ou Outorga de Uso de Recursos Hídricos (dentro da validade).</span>
+            <span class="checklist-sub">Evidência: Certidão de Registro de Uso Insignificante de Recurso Hídrico ou
+              Outorga de Uso de Recursos Hídricos (dentro da validade).</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-agua-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-agua-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- COLETA DE ESGOTO -->
@@ -1616,16 +1713,19 @@
         <div class="checklist-item">
           <input type="radio" name="amb-esgoto" id="amb-esgoto-2" value="sistema-proprio">
           <label for="amb-esgoto-2">O esgoto é tratado por sistema próprio (fossa séptica, filtro anaeróbio, etc.)<br>
-            <span class="checklist-sub">Evidência: verificar visualmente e solicitar comprovante de exames laboratoriais com "Conclusão" atendendo à legislação ambiental.</span>
+            <span class="checklist-sub">Evidência: verificar visualmente e solicitar comprovante de exames laboratoriais
+              com "Conclusão" atendendo à legislação ambiental.</span>
           </label>
         </div>
         <div class="checklist-item">
           <input type="radio" name="amb-esgoto" id="amb-esgoto-3" value="fossa-impermeavel">
           <label for="amb-esgoto-3">O esgoto é armazenado em fossa impermeabilizada e recolhido por empresa.<br>
-            <span class="checklist-sub">Evidência: cópia da licença ambiental da empresa coletora (dentro da validade e autorizada para o serviço).</span>
+            <span class="checklist-sub">Evidência: cópia da licença ambiental da empresa coletora (dentro da validade e
+              autorizada para o serviço).</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-esgoto-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-esgoto-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- ARMAZENAMENTO DE RESÍDUOS -->
@@ -1633,11 +1733,15 @@
         <div class="section-title">Armazenamento de Resíduos</div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-residuos">
-          <label for="amb-residuos">O local possui baias (p/ cabos), tambores ou bombonas e demais recipientes para separação e armazenamento de resíduos.<br>
-            <span class="checklist-sub">Evidência: todo recipiente deve estar identificado com o nome do resíduo e conter a classificação (Perigoso – Classe I / Não Perigoso – Classe IIA ou IIB). Fotografar situações de dúvida.</span>
+          <label for="amb-residuos">O local possui baias (p/ cabos), tambores ou bombonas e demais recipientes para
+            separação e armazenamento de resíduos.<br>
+            <span class="checklist-sub">Evidência: todo recipiente deve estar identificado com o nome do resíduo e
+              conter a classificação (Perigoso – Classe I / Não Perigoso – Classe IIA ou IIB). Fotografar situações de
+              dúvida.</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-residuos-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-residuos-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- ARMAZENAMENTO DE PRODUTOS QUÍMICOS -->
@@ -1645,8 +1749,10 @@
         <div class="section-title">Armazenamento de Produtos Químicos</div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-quimicos">
-          <label for="amb-quimicos">Há local identificado, trancado, ventilado, contido por bandejas nas prateleiras e com as respectivas FISPQ para armazenamento de produtos químicos e embalagens vazias.<br>
-            <span class="checklist-sub">Nota 1: caso não haja produto químico armazenado, não haverá FISPQ a cobrar. Nota 2: produtos inflamáveis não podem estar próximos de fontes de ignição.</span>
+          <label for="amb-quimicos">Há local identificado, trancado, ventilado, contido por bandejas nas prateleiras e
+            com as respectivas FISPQ para armazenamento de produtos químicos e embalagens vazias.<br>
+            <span class="checklist-sub">Nota 1: caso não haja produto químico armazenado, não haverá FISPQ a cobrar.
+              Nota 2: produtos inflamáveis não podem estar próximos de fontes de ignição.</span>
           </label>
         </div>
       </div>
@@ -1656,17 +1762,22 @@
         <div class="section-title">Armazenamento de Equipamentos Avariados Contendo Óleo</div>
         <div class="checklist-item">
           <input type="radio" name="amb-oleo" id="amb-oleo-1" value="alvenaria">
-          <label for="amb-oleo-1">Há bacia de contenção em alvenaria (mínimo 25 m²) de acordo com o procedimento GR/EC-1204.<br>
-            <span class="checklist-sub">Evidência: ART de profissional habilitado atestando atendimento ao procedimento.</span>
+          <label for="amb-oleo-1">Há bacia de contenção em alvenaria (mínimo 25 m²) de acordo com o procedimento
+            GR/EC-1204.<br>
+            <span class="checklist-sub">Evidência: ART de profissional habilitado atestando atendimento ao
+              procedimento.</span>
           </label>
         </div>
         <div class="checklist-item">
           <input type="radio" name="amb-oleo" id="amb-oleo-2" value="metalica">
-          <label for="amb-oleo-2">Há bacia(s) de contenção metálica(s) cuja soma seja de no mínimo 25 m², conforme item 4.4 do procedimento GR/EC-1204.<br>
-            <span class="checklist-sub">Evidência: verificar estanqueidade (pontos de solda; se houver dúvida, colocar água e observar vazamento).</span>
+          <label for="amb-oleo-2">Há bacia(s) de contenção metálica(s) cuja soma seja de no mínimo 25 m², conforme item
+            4.4 do procedimento GR/EC-1204.<br>
+            <span class="checklist-sub">Evidência: verificar estanqueidade (pontos de solda; se houver dúvida, colocar
+              água e observar vazamento).</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-oleo-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-oleo-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- KIT PAE -->
@@ -1674,11 +1785,14 @@
         <div class="section-title">Kit PAE – Plano de Atendimento a Emergência</div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-pae">
-          <label for="amb-pae">A instalação conta com kit para emergências de vazamento de óleo, sinalizado e contendo no mínimo: pá, serragem, sacos plásticos de alta resistência, fraldão e vassoura.<br>
-            <span class="checklist-sub">Nota: sinalização do Kit PAE deve estar em local visível e o kit acessível para uso imediato a qualquer dia e horário.</span>
+          <label for="amb-pae">A instalação conta com kit para emergências de vazamento de óleo, sinalizado e contendo
+            no mínimo: pá, serragem, sacos plásticos de alta resistência, fraldão e vassoura.<br>
+            <span class="checklist-sub">Nota: sinalização do Kit PAE deve estar em local visível e o kit acessível para
+              uso imediato a qualquer dia e horário.</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-pae-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-pae-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- MONITORAMENTO DE FUMAÇA PRETA -->
@@ -1686,15 +1800,19 @@
         <div class="section-title">Monitoramento de Fumaça Preta em Veículos a Diesel</div>
         <div class="checklist-item">
           <input type="radio" name="amb-fumaca" id="amb-fumaca-1" value="ringelmann">
-          <label for="amb-fumaca-1">O monitoramento é realizado por Escala Ringelmann e há planilha impressa e assinada com identificação e controle de todos os veículos a diesel.<br>
-            <span class="checklist-sub">Periodicidade trimestral; primeiro monitoramento antes do início das atividades, mesmo em veículos novos. Controle realizado pelo Técnico de Meio Ambiente da contratada.</span>
+          <label for="amb-fumaca-1">O monitoramento é realizado por Escala Ringelmann e há planilha impressa e assinada
+            com identificação e controle de todos os veículos a diesel.<br>
+            <span class="checklist-sub">Periodicidade trimestral; primeiro monitoramento antes do início das atividades,
+              mesmo em veículos novos. Controle realizado pelo Técnico de Meio Ambiente da contratada.</span>
           </label>
         </div>
         <div class="checklist-item">
           <input type="radio" name="amb-fumaca" id="amb-fumaca-2" value="opacimetro">
-          <label for="amb-fumaca-2">O monitoramento é realizado por Opacímetro em empresa contratada e há laudos técnicos dos testes realizados em todos os veículos a diesel.</label>
+          <label for="amb-fumaca-2">O monitoramento é realizado por Opacímetro em empresa contratada e há laudos
+            técnicos dos testes realizados em todos os veículos a diesel.</label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-fumaca-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-fumaca-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- DEPÓSITO DE POSTES -->
@@ -1702,11 +1820,15 @@
         <div class="section-title">Depósito de Postes</div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-postes">
-          <label for="amb-postes">Possui depósito de postes devidamente sinalizado, cercado, trancado e sem condições propícias à infestação por animais peçonhentos (mato alto, lixo, galharias, etc.).<br>
-            <span class="checklist-sub">Nota 1: verificar se o depósito está a menos de 30m de curso d'água (se sim, exige autorização do órgão ambiental – APP). Nota 2: verificar falhas de drenagem e taludes sem vegetação. Nota 3: verificar postes Duplo T com cocho virado para cima.</span>
+          <label for="amb-postes">Possui depósito de postes devidamente sinalizado, cercado, trancado e sem condições
+            propícias à infestação por animais peçonhentos (mato alto, lixo, galharias, etc.).<br>
+            <span class="checklist-sub">Nota 1: verificar se o depósito está a menos de 30m de curso d'água (se sim,
+              exige autorização do órgão ambiental – APP). Nota 2: verificar falhas de drenagem e taludes sem vegetação.
+              Nota 3: verificar postes Duplo T com cocho virado para cima.</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-postes-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-postes-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- REGISTRO DE MOTOSSERRAS -->
@@ -1714,29 +1836,39 @@
         <div class="section-title">Registro de Motosserras</div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-motosserras">
-          <label for="amb-motosserras">Todas as motosserras apresentadas possuem Licença de Porte e Certificado de Registro emitidos pelo IEF, dentro dos respectivos prazos de validade.<br>
-            <span class="checklist-sub">Evidência: Certificado de Registro (categoria "Proprietário de motosserra – Pessoa jurídica") + Licença de Porte para cada motosserra (conferir proprietário e Número de Série/Chassi).</span>
+          <label for="amb-motosserras">Todas as motosserras apresentadas possuem Licença de Porte e Certificado de
+            Registro emitidos pelo IEF, dentro dos respectivos prazos de validade.<br>
+            <span class="checklist-sub">Evidência: Certificado de Registro (categoria "Proprietário de motosserra –
+              Pessoa jurídica") + Licença de Porte para cada motosserra (conferir proprietário e Número de
+              Série/Chassi).</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-motosserras-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-motosserras-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- TRITURADOR DE RESÍDUOS DE PODA -->
       <div class="card">
-        <div class="section-title">Triturador de Resíduos de Poda <span style="font-size:11px;font-weight:400;color:var(--text-light);">(somente quando há equipe exclusiva de poda na ATE)</span></div>
+        <div class="section-title">Triturador de Resíduos de Poda <span
+            style="font-size:11px;font-weight:400;color:var(--text-light);">(somente quando há equipe exclusiva de poda
+            na ATE)</span></div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-triturador">
-          <label for="amb-triturador">Há triturador(es) de resíduos de poda na quantidade e especificação exigidas pelo contrato.<br>
-            <span class="checklist-sub">Nota: consultar a Especificação Técnica do contrato para verificar quantidade e capacidade de trituração exigidas.</span>
+          <label for="amb-triturador">Há triturador(es) de resíduos de poda na quantidade e especificação exigidas pelo
+            contrato.<br>
+            <span class="checklist-sub">Nota: consultar a Especificação Técnica do contrato para verificar quantidade e
+              capacidade de trituração exigidas.</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-triturador-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-triturador-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- VISITA GERAL AO PÁTIO -->
       <div class="card">
         <div class="section-title">Visita Geral ao Pátio / Depósito</div>
-        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">Percorrer toda a extensão do pátio e depósito e verificar a eventual existência de:</p>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">Percorrer toda a extensão do pátio e
+          depósito e verificar a eventual existência de:</p>
         <div class="checklist-item">
           <input type="checkbox" id="amb-patio-1">
           <label for="amb-patio-1">Locais com água parada ou com potencial para tal.</label>
@@ -1751,31 +1883,39 @@
         </div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-patio-4">
-          <label for="amb-patio-4">Gaiolas, jaulas ou quaisquer outros artefatos que indiquem aprisionamento ou captura de fauna.</label>
+          <label for="amb-patio-4">Gaiolas, jaulas ou quaisquer outros artefatos que indiquem aprisionamento ou captura
+            de fauna.</label>
         </div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-patio-5">
-          <label for="amb-patio-5">Cisternas, poços artesianos ou fossas sanitárias mesmo quando tenha sido alegado e apresentado evidência de prestação por concessionária.</label>
+          <label for="amb-patio-5">Cisternas, poços artesianos ou fossas sanitárias mesmo quando tenha sido alegado e
+            apresentado evidência de prestação por concessionária.</label>
         </div>
-        <div class="note-box" style="margin-top:12px;">Em caso de ocorrência destes quesitos ou quaisquer outros não listados que configurem ameaças ambientais, fazer constar no Relatório de ATE – RATE.</div>
-        <div class="field" style="margin-top:10px;"><label>Observação Geral do Pátio</label><textarea data-field="amb-patio-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="note-box" style="margin-top:12px;">Em caso de ocorrência destes quesitos ou quaisquer outros não
+          listados que configurem ameaças ambientais, fazer constar no Relatório de ATE – RATE.</div>
+        <div class="field" style="margin-top:10px;"><label>Observação Geral do Pátio</label><textarea
+            data-field="amb-patio-obs" placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- ALOJAMENTO -->
       <div class="card">
-        <div class="section-title">Alojamento <span style="font-size:11px;font-weight:400;color:var(--text-light);">(quando aplicável)</span></div>
+        <div class="section-title">Alojamento <span
+            style="font-size:11px;font-weight:400;color:var(--text-light);">(quando aplicável)</span></div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-alojamento">
           <label for="amb-alojamento">Não há vazamento de água em vasos sanitários, torneiras e registros.<br>
             <span class="checklist-sub">Nota: nem toda contratada possui alojamento.</span>
           </label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-alojamento-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-alojamento-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- BOAS PRÁTICAS -->
       <div class="card">
-        <div class="section-title">Boas Práticas Ambientais <span style="font-size:11px;font-weight:400;color:var(--text-light);">(registrar mesmo que não sejam exigências contratuais)</span></div>
+        <div class="section-title">Boas Práticas Ambientais <span
+            style="font-size:11px;font-weight:400;color:var(--text-light);">(registrar mesmo que não sejam exigências
+            contratuais)</span></div>
         <div class="checklist-item">
           <input type="checkbox" id="amb-boas-1">
           <label for="amb-boas-1">Coleta de água de chuva.</label>
@@ -1792,14 +1932,16 @@
           <input type="checkbox" id="amb-boas-4">
           <label for="amb-boas-4">Coleta seletiva.</label>
         </div>
-        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-boas-obs" placeholder="Registre observações..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Observação</label><textarea data-field="amb-boas-obs"
+            placeholder="Registre observações..."></textarea></div>
       </div>
 
       <!-- ENCERRAMENTO -->
       <div class="card">
         <div class="section-title">Encerramento</div>
         <div class="grid g2" style="margin-bottom:12px;">
-          <div class="field"><label>Verificação realizada por</label><input type="text" data-field="amb-realizada"></div>
+          <div class="field"><label>Verificação realizada por</label><input type="text" data-field="amb-realizada">
+          </div>
           <div class="field"><label>Matrícula</label><input type="text" data-field="amb-mat"></div>
         </div>
         <div class="grid g2">
@@ -1811,7 +1953,8 @@
       <!-- ASSINATURAS -->
       <div class="card">
         <div class="section-title">Anexos Fotográficos</div>
-        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF gerado.</p>
+        <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;">As fotos selecionadas aparecerão no PDF
+          gerado.</p>
         <label class="photo-upload-label">
           📷 Selecionar Fotos
           <input type="file" accept="image/*" multiple onchange="handlePhotoUpload(event, 'preview-amb')">
@@ -1823,13 +1966,19 @@
         <div class="section-title">Assinaturas</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-top:24px;margin-bottom:8px;">
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Empregado Inspecionado</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Empregado Inspecionado</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Responsável Local da Contratada</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Responsável Local da Contratada</div>
           </div>
           <div style="text-align:center;">
-            <div style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">Agente de Inspeção</div>
+            <div
+              style="border-top:1.5px solid var(--text);padding-top:8px;margin-top:60px;font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.4px;">
+              Agente de Inspeção</div>
           </div>
         </div>
       </div>
@@ -1841,6 +1990,7 @@
           <button class="btn btn-reset" onclick="resetForm('amb')">Limpar</button>
         </div>
         <div class="btn-bar-right">
+          <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
           <button class="btn btn-excel" onclick="exportExcel('amb')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -2044,7 +2194,7 @@
       { num: 81, desc: "Grampo prendedor de lençol", uni: "Pç", qty: 8 },
       { num: 82, desc: "Impressora Térmica Portátil", uni: "Pç", qty: 1, laudo: 1, fabs: ["ZEBRA RW420", "ZEBRA ZQ520", "ZEBRA ZQ521", "BIXOLON XM7-40"] },
       { num: 83, desc: "Inflador ou testador de luvas de borracha (*)", uni: "Pç", qty: 1 },
-      { num: 80, desc: "Kit Calibrador portátil para ensaio em medidor kWh eletromecânico e eletrônico (**)", uni: "Pç", qty: 1, laudo: 1, fabs: ["Montrel"] },
+      { num: 84, desc: "Kit Calibrador portátil para ensaio em medidor kWh eletromecânico e eletrônico (**)", uni: "Pç", qty: 1, laudo: 1, fabs: ["Montrel"] },
       { num: 85, desc: "Kit Antirreprova (**)", uni: "Pç", qty: 1 },
       { num: 86, desc: "Lanterna", uni: "Pç", qty: 2 },
       { num: 87, desc: "Lençol de borracha isolante para BT e sacola para acondicionar", uni: "Pç", qty: 10, laudo: 10, labs: ["Oficina do Alicate", "ITRA", "REMO", "CTMIG", "Helite", "BHMIG", "GLOBALTEK"] },
@@ -2183,30 +2333,30 @@
     let idCounter = 0;
     function uid() { return 'f' + (++idCounter); }
 
-    function renderLaudo(n, fabs, labs, hasValidade = true) {
+    function renderLaudo(n, fabs, labs, itemKey, hasValidade = true) {
       let html = '<div class="laudo-row">';
       for (let i = 1; i <= n; i++) {
-        const id = uid();
+        const laudoKey = itemKey + '__L' + i;
         html += `<div class="laudo-grid" style="margin-bottom:${n > 1 ? '8px' : '0'}">
       <span style="font-size:11px;font-weight:700;color:var(--cemig-blue);">${n > 1 ? i + 'º ' : ''}Laudo</span>
       <div class="radio-group">
-        <label><input type="radio" name="${id}" value="S"> S</label>
-        <label><input type="radio" name="${id}" value="N"> N</label>
+        <label><input type="radio" name="${laudoKey}" value="S"> S</label>
+        <label><input type="radio" name="${laudoKey}" value="N"> N</label>
       </div>
       <label>Nº controle:</label>
-      <input type="text" placeholder="___________" style="width:120px;">
-      ${hasValidade ? `<label>Validade:</label><input type="text" placeholder="__/__/____" style="width:100px;">` : ''}
+      <input type="text" placeholder="___________" style="width:120px;" data-laudo="${laudoKey}__ctrl">
+      ${hasValidade ? `<label>Validade:</label><input type="text" placeholder="__/__/____" style="width:100px;" data-laudo="${laudoKey}__val">` : ''}
     </div>`;
       }
       if (fabs && fabs.length > 0) {
         html += `<div class="fab-row"><span>Fabricantes:</span>`;
-        fabs.forEach(f => { html += `<label class="checkbox-inline"><input type="checkbox"> ${f}</label>`; });
-        html += `<label class="checkbox-inline"><input type="checkbox"> Outro</label></div>`;
+        fabs.forEach(f => { const k = f.replace(/[\s\/\'\"]+/g, '_'); html += `<label class="checkbox-inline"><input type="checkbox" data-fab="${itemKey}__${k}"> ${f}</label>`; });
+        html += `<label class="checkbox-inline"><input type="checkbox" data-fab="${itemKey}__Outro"> Outro</label></div>`;
       }
       if (labs && labs.length > 0) {
         html += `<div class="fab-row"><span>Laboratórios:</span>`;
-        labs.forEach(l => { html += `<label class="checkbox-inline"><input type="checkbox"> ${l}</label>`; });
-        html += `<label class="checkbox-inline"><input type="checkbox"> Outro</label></div>`;
+        labs.forEach(l => { const k = l.replace(/[\s\/\'\"]+/g, '_'); html += `<label class="checkbox-inline"><input type="checkbox" data-lab="${itemKey}__${k}"> ${l}</label>`; });
+        html += `<label class="checkbox-inline"><input type="checkbox" data-lab="${itemKey}__Outro"> Outro</label></div>`;
       }
       html += '</div>';
       return html;
@@ -2216,16 +2366,17 @@
       const tbody = document.getElementById(tbodyId);
       let html = '';
       items.forEach(item => {
+        const itemKey = tbodyId + '__' + item.num;
         html += `<tr>
       <td class="item-num">${item.num}</td>
       <td>${item.desc}</td>
       <td class="item-uni">${item.uni}</td>
       <td class="item-qty">${item.qty}</td>
-      <td><input class="qty-input" type="number" min="0" placeholder="0" data-item="${item.num}"></td>
+      <td><input class="qty-input" type="number" min="0" placeholder="0" data-item="${itemKey}"></td>
     </tr>`;
         if (item.laudo) {
           html += `<tr><td colspan="5" style="padding:4px 10px 8px;">
-        ${renderLaudo(item.laudo, item.fabs, item.labs)}
+        ${renderLaudo(item.laudo, item.fabs, item.labs, itemKey)}
       </td></tr>`;
         }
       });
@@ -2347,9 +2498,11 @@
         exportMotoExcel(wb, today);
       } else if (formId === 'es2') {
         exportES2Excel(wb, today);
+      } else if (formId === 'amb') {
+        exportAmbExcel(wb, today);
       }
 
-      const formNames = { infra: 'Infraestrutura', moto: 'Motociclistas', es2: 'Multifuncional_ES2' };
+      const formNames = { infra: 'Infraestrutura', moto: 'Motociclistas', es2: 'Multifuncional_ES2', amb: 'Ambiental' };
       XLSX.writeFile(wb, `ATE_${formNames[formId]}_${today.replace(/\//g, '-')}.xlsx`);
     }
 
@@ -2519,12 +2672,11 @@
     }
 
     function collectTableData(container, tbodyId, dataArray, rows) {
-      const inputs = container.querySelectorAll(`#${tbodyId} .qty-input`);
-      let inputIdx = 0;
       dataArray.forEach(item => {
-        const pendente = inputs[inputIdx] ? inputs[inputIdx].value || '' : '';
+        const itemKey = tbodyId + '__' + item.num;
+        const input = container.querySelector(`.qty-input[data-item="${itemKey}"]`);
+        const pendente = input ? input.value || '' : '';
         rows.push([item.num, item.desc, item.uni, item.qty, pendente]);
-        inputIdx++;
       });
     }
 
@@ -2609,27 +2761,50 @@
     // ════════════════════════════════════════════════════════
     // PHOTO UPLOAD HANDLER
     // ════════════════════════════════════════════════════════
-    function handlePhotoUpload(event, containerId) {
-      const container = document.getElementById(containerId);
-      Array.from(event.target.files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const item = document.createElement('div');
-          item.className = 'image-preview-item';
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.title = file.name;
-          const btn = document.createElement('button');
-          btn.className = 'remove-photo';
-          btn.innerHTML = '✕';
-          btn.onclick = () => item.remove();
-          item.appendChild(img);
-          item.appendChild(btn);
-          container.appendChild(item);
+    function compressImage(dataUrl, maxWidth, quality) {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          let w = img.width, h = img.height;
+          if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
         };
-        reader.readAsDataURL(file);
+        img.src = dataUrl;
       });
+    }
+
+    function addPhotoToPreview(container, dataUrl) {
+      const item = document.createElement('div');
+      item.className = 'image-preview-item';
+      const img = document.createElement('img');
+      img.src = dataUrl;
+      const btn = document.createElement('button');
+      btn.className = 'remove-photo';
+      btn.innerHTML = '✕';
+      btn.onclick = () => { item.remove(); scheduleAutoSave(); };
+      item.appendChild(img);
+      item.appendChild(btn);
+      container.appendChild(item);
+    }
+
+    async function handlePhotoUpload(event, containerId) {
+      const container = document.getElementById(containerId);
+      const files = Array.from(event.target.files);
+      for (const file of files) {
+        const dataUrl = await new Promise(resolve => {
+          const reader = new FileReader();
+          reader.onload = e => resolve(e.target.result);
+          reader.readAsDataURL(file);
+        });
+        const compressed = await compressImage(dataUrl, 800, 0.6);
+        addPhotoToPreview(container, compressed);
+      }
       event.target.value = '';
+      scheduleAutoSave();
     }
 
     // ════════════════════════════════════════════════════════
@@ -2650,14 +2825,14 @@
     // SESSION MANAGEMENT
     // ════════════════════════════════════════════════════════
     let currentSessionId = null;
-    let currentFormType  = null;
-    let autoSaveTimer    = null;
+    let currentFormType = null;
+    let autoSaveTimer = null;
 
     const FORM_LABELS = {
       infra: 'Infraestrutura Administrativa',
-      moto:  'Equipes de Motociclistas',
-      es2:   'Multifuncional ES2',
-      amb:   'Parte Ambiental'
+      moto: 'Equipes de Motociclistas',
+      es2: 'Multifuncional ES2',
+      amb: 'Parte Ambiental'
     };
 
     function generateId() {
@@ -2671,15 +2846,16 @@
     }
 
     function setStatus(msg, cls = '') {
-      const el = document.getElementById('session-status');
-      if (!el) return;
-      el.textContent = msg;
-      el.className = 'session-status ' + cls;
+      document.querySelectorAll('.session-status').forEach(el => {
+        el.textContent = msg;
+        el.className = 'session-status ' + cls;
+      });
     }
 
     function updateSessionDisplay() {
-      const el = document.getElementById('session-id-display');
-      if (el) el.textContent = currentSessionId || '–';
+      document.querySelectorAll('.session-id').forEach(el => {
+        el.textContent = currentSessionId || 'Aguardando...';
+      });
     }
 
     function copySessionId() {
@@ -2694,7 +2870,7 @@
       const container = document.getElementById('form-' + formId);
       const data = {};
 
-      // text/date/number inputs and textareas
+      // text/date/number inputs and textareas with data-field
       container.querySelectorAll('input[data-field], textarea[data-field]').forEach(el => {
         data[el.dataset.field] = el.value;
       });
@@ -2714,7 +2890,7 @@
         data['check__' + el.id] = el.checked;
       });
 
-      // qty inputs (infra NA/C/NC radios + NC comments)
+      // infra NA/C/NC radios + NC comments
       container.querySelectorAll('input[type="radio"][name^="infra-item-"]').forEach(el => {
         if (el.checked) data['radio__' + el.name] = el.value;
       });
@@ -2722,9 +2898,31 @@
         data['nc__' + el.id] = el.value;
       });
 
-      // qty-input fields (ferramentas)
+      // qty-input fields (ferramentas, EPIs, Kit)
       container.querySelectorAll('.qty-input[data-item]').forEach(el => {
         data['qty__' + el.dataset.item] = el.value;
+      });
+
+      // laudo text inputs (Nº controle, Validade)
+      container.querySelectorAll('input[data-laudo]').forEach(el => {
+        data['laudo__' + el.dataset.laudo] = el.value;
+      });
+
+      // fabricante checkboxes
+      container.querySelectorAll('input[data-fab]').forEach(el => {
+        data['fab__' + el.dataset.fab] = el.checked;
+      });
+
+      // laboratório checkboxes
+      container.querySelectorAll('input[data-lab]').forEach(el => {
+        data['lab__' + el.dataset.lab] = el.checked;
+      });
+
+      // photos (compressed base64)
+      container.querySelectorAll('.image-preview-container').forEach(pc => {
+        const imgs = pc.querySelectorAll('img');
+        const photos = Array.from(imgs).map(img => img.src);
+        if (photos.length > 0) data['photos__' + pc.id] = photos;
       });
 
       return data;
@@ -2754,6 +2952,24 @@
           const item = key.replace('qty__', '');
           const el = container.querySelector(`.qty-input[data-item="${item}"]`);
           if (el) el.value = value;
+        } else if (key.startsWith('laudo__')) {
+          const laudoKey = key.replace('laudo__', '');
+          const el = container.querySelector(`input[data-laudo="${laudoKey}"]`);
+          if (el) el.value = value;
+        } else if (key.startsWith('fab__')) {
+          const fabKey = key.replace('fab__', '');
+          const el = container.querySelector(`input[data-fab="${fabKey}"]`);
+          if (el) el.checked = value;
+        } else if (key.startsWith('lab__')) {
+          const labKey = key.replace('lab__', '');
+          const el = container.querySelector(`input[data-lab="${labKey}"]`);
+          if (el) el.checked = value;
+        } else if (key.startsWith('photos__')) {
+          const containerId = key.replace('photos__', '');
+          const pc = document.getElementById(containerId);
+          if (pc && Array.isArray(value)) {
+            value.forEach(photoUrl => addPhotoToPreview(pc, photoUrl));
+          }
         } else {
           const el = container.querySelector(`[data-field="${key}"]`);
           if (el) el.value = value;
@@ -2762,17 +2978,45 @@
     }
 
     // ── Auto-save ─────────────────────────────────────────────────────────────
+    async function initSessionIfNeeded() {
+      if (currentSessionId || !currentFormType) return;
+      currentSessionId = generateId();
+      updateSessionDisplay();
+      try {
+        await db.collection('formularios-ate').doc(currentSessionId).set({
+          formType: currentFormType,
+          formLabel: FORM_LABELS[currentFormType],
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          status: 'em_andamento',
+          data: {}
+        });
+        saveToLocalHistory(currentSessionId, currentFormType);
+      } catch (e) {
+        console.error('Erro ao criar sessão:', e);
+      }
+    }
+
     function scheduleAutoSave() {
-      if (!currentSessionId || !currentFormType) return;
+      if (!currentFormType) return;
       clearTimeout(autoSaveTimer);
       setStatus('Salvando...', 'saving');
-      autoSaveTimer = setTimeout(saveSession, 1500);
+      autoSaveTimer = setTimeout(async () => {
+        await initSessionIfNeeded();
+        await saveSession();
+      }, 1500);
     }
 
     async function saveSession() {
       if (!currentSessionId || !currentFormType) return;
       try {
         const formData = collectFormData(currentFormType);
+        // Verificar tamanho estimado (aviso se > 900KB)
+        const dataStr = JSON.stringify(formData);
+        const sizeKB = Math.round(dataStr.length / 1024);
+        if (sizeKB > 900) {
+          console.warn(`Aviso: documento com ~${sizeKB}KB. Limite do Firestore é 1MB.`);
+        }
         await db.collection('formularios-ate').doc(currentSessionId).set({
           formType: currentFormType,
           formLabel: FORM_LABELS[currentFormType],
@@ -2782,9 +3026,29 @@
         }, { merge: true });
         setStatus('Salvo ✓', 'saved');
         saveToLocalHistory(currentSessionId, currentFormType);
-      } catch(e) {
+      } catch (e) {
         setStatus('Erro ao salvar', '');
         console.error(e);
+      }
+    }
+
+    async function saveManual(btn) {
+      if (!currentFormType) {
+        alert('Nenhum formulário ativo para salvar.');
+        return;
+      }
+      clearTimeout(autoSaveTimer);
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '⏳ Salvando...';
+      btn.disabled = true;
+      try {
+        await initSessionIfNeeded();
+        await saveSession();
+        btn.innerHTML = '✅ Salvo!';
+        setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 2000);
+      } catch (e) {
+        btn.innerHTML = '❌ Erro!';
+        setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 2000);
       }
     }
 
@@ -2843,7 +3107,7 @@
         if (!doc.exists) { alert('Sessão não encontrada. Verifique o ID e tente novamente.'); return; }
         const session = doc.data();
         currentSessionId = sessionId;
-        currentFormType  = session.formType;
+        currentFormType = session.formType;
         // Show the form first (tables need to render)
         showForm(session.formType);
         updateSessionDisplay();
@@ -2853,7 +3117,7 @@
           setStatus('Sessão carregada ✓', 'saved');
           attachAutoSave(session.formType);
         }, 300);
-      } catch(e) {
+      } catch (e) {
         setStatus('Erro ao carregar', '');
         console.error(e);
         alert('Erro ao carregar a sessão. Tente novamente.');
@@ -2873,24 +3137,14 @@
 
     // ── Override showForm to init session ─────────────────────────────────────
     const _originalShowForm = showForm;
-    showForm = function(formId) {
+    showForm = function (formId) {
       _originalShowForm(formId);
-      // Only create new session if not loading an existing one
+      // Only set up form type if not loading an existing session
       if (!currentSessionId || currentFormType !== formId) {
-        currentSessionId = generateId();
-        currentFormType  = formId;
+        currentSessionId = null;
+        currentFormType = formId;
         updateSessionDisplay();
-        setStatus('Pronto para salvar', '');
-        // Create session doc with createdAt
-        db.collection('formularios-ate').doc(currentSessionId).set({
-          formType: formId,
-          formLabel: FORM_LABELS[formId],
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          status: 'em_andamento',
-          data: {}
-        });
-        saveToLocalHistory(currentSessionId, formId);
+        setStatus('Sessão será criada ao inserir dados', '');
       }
       attachAutoSave(formId);
     };
