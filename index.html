@@ -954,11 +954,40 @@
       font-weight: 700;
       color: var(--cemig-blue);
       font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .history-item .hi-center {
+      flex: 1;
+      min-width: 0;
     }
 
     .history-item .hi-meta {
       font-size: 11px;
       color: var(--text-light);
+    }
+
+    .hi-status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .hi-status.em-andamento {
+      background: #fff3e0;
+      color: #e65100;
+      border: 1px solid #ffcc80;
+    }
+
+    .hi-status.concluido {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #a5d6a7;
     }
 
     .history-item .hi-btns {
@@ -1142,6 +1171,23 @@
         <div>
           <h1>FORMULÁRIO PARA AVALIAÇÃO TÉCNICA EM EMPREITEIRA – ATE</h1>
           <h2>INFRAESTRUTURA ADMINISTRATIVA</h2>
+        </div>
+      </div>
+
+      <!-- AGENTES INFRA -->
+      <div class="card">
+        <div class="section-title">Agente(s) Executor(es) da Inspeção</div>
+        <div class="grid g2" style="margin-bottom:10px;">
+          <div class="field"><label>Agente 1</label><input type="text" data-field="infra-agente1"></div>
+          <div class="field"><label>Matrícula</label><input type="text" data-field="infra-mat1"></div>
+        </div>
+        <div class="grid g2" style="margin-bottom:10px;">
+          <div class="field"><label>Agente 2</label><input type="text" data-field="infra-agente2"></div>
+          <div class="field"><label>Matrícula</label><input type="text" data-field="infra-mat2"></div>
+        </div>
+        <div class="grid g2">
+          <div class="field"><label>Agente 3</label><input type="text" data-field="infra-agente3"></div>
+          <div class="field"><label>Matrícula</label><input type="text" data-field="infra-mat3"></div>
         </div>
       </div>
 
@@ -1782,6 +1828,23 @@
         </div>
       </div>
 
+      <!-- AGENTES AMB -->
+      <div class="card">
+        <div class="section-title">Agente(s) Executor(es) da Inspeção</div>
+        <div class="grid g2" style="margin-bottom:10px;">
+          <div class="field"><label>Agente 1</label><input type="text" data-field="amb-agente1"></div>
+          <div class="field"><label>Matrícula</label><input type="text" data-field="amb-mat-ag1"></div>
+        </div>
+        <div class="grid g2" style="margin-bottom:10px;">
+          <div class="field"><label>Agente 2</label><input type="text" data-field="amb-agente2"></div>
+          <div class="field"><label>Matrícula</label><input type="text" data-field="amb-mat-ag2"></div>
+        </div>
+        <div class="grid g2">
+          <div class="field"><label>Agente 3</label><input type="text" data-field="amb-agente3"></div>
+          <div class="field"><label>Matrícula</label><input type="text" data-field="amb-mat-ag3"></div>
+        </div>
+      </div>
+
       <!-- ABASTECIMENTO DE ÁGUA -->
       <div class="card">
         <div class="section-title">Abastecimento de Água</div>
@@ -2387,7 +2450,8 @@
     ];
 
     const es2ChecklistVeiculo = [
-      "Veículo próprio / locado",
+      "Veículo próprio",
+      "Veículo locado",
       "Documentação atualizada",
       "Controle de manutenção do veículo (físico ou digital)",
       "Câmera veicular",
@@ -2659,6 +2723,11 @@
         ['CPF', getVal('[data-field="infra-resp-cpf"]')],
         ['Função', getVal('[data-field="infra-resp-funcao"]')],
         [''],
+        ['AGENTES EXECUTORES'],
+        ['Agente 1', getVal('[data-field="infra-agente1"]'), 'Matrícula', getVal('[data-field="infra-mat1"]')],
+        ['Agente 2', getVal('[data-field="infra-agente2"]'), 'Matrícula', getVal('[data-field="infra-mat2"]')],
+        ['Agente 3', getVal('[data-field="infra-agente3"]'), 'Matrícula', getVal('[data-field="infra-mat3"]')],
+        [''],
         ['Observações', getVal('[data-field="infra-obs"]')],
       ];
       const ws1 = XLSX.utils.aoa_to_sheet(info);
@@ -2831,6 +2900,11 @@
         ['Município', getVal('amb-municipio')],
         ['Técnico MA', getVal('amb-tecnico')],
         ['CRT Nº', getVal('amb-crt')],
+        [''],
+        ['AGENTES EXECUTORES'],
+        ['Agente 1', getVal('amb-agente1'), 'Matrícula', getVal('amb-mat-ag1')],
+        ['Agente 2', getVal('amb-agente2'), 'Matrícula', getVal('amb-mat-ag2')],
+        ['Agente 3', getVal('amb-agente3'), 'Matrícula', getVal('amb-mat-ag3')],
         [''],
         ['CHECKLIST AMBIENTAL'],
         ['Abastecimento de Água', getRadio('amb-agua'), 'Obs:', getVal('amb-agua-obs')],
@@ -3126,7 +3200,7 @@
     }
 
     function scheduleAutoSave() {
-      if (!currentFormType) return;
+      if (!currentFormType || isFormLocked) return;
       clearTimeout(autoSaveTimer);
       setStatus('Salvando...', 'saving');
       autoSaveTimer = setTimeout(async () => {
@@ -3180,13 +3254,71 @@
       }
     }
 
+    // ── Bloquear formulário concluído ──────────────────────────────────────────
+    let isFormLocked = false;
+
+    function lockForm(formId) {
+      isFormLocked = true;
+      const container = document.getElementById('form-' + formId);
+      // Desabilitar todos os campos
+      container.querySelectorAll('input, textarea, select').forEach(el => {
+        el.disabled = true;
+        el.style.opacity = '0.7';
+        el.style.cursor = 'not-allowed';
+      });
+      // Desabilitar uploads de fotos
+      container.querySelectorAll('.photo-upload-label').forEach(el => {
+        el.style.display = 'none';
+      });
+      // Desabilitar botões de remover foto
+      container.querySelectorAll('.remove-photo').forEach(el => {
+        el.style.display = 'none';
+      });
+      // Ocultar botões Salvar, Finalizar e Limpar; manter Voltar e Exportar
+      container.querySelectorAll('.btn-save, .btn-finalizar, .btn-reset').forEach(el => {
+        el.style.display = 'none';
+      });
+      // Inserir banner de formulário concluído
+      const btnBar = container.querySelector('.btn-bar');
+      if (btnBar && !container.querySelector('.locked-banner')) {
+        const banner = document.createElement('div');
+        banner.className = 'locked-banner';
+        banner.innerHTML = '🔒 Formulário concluído — somente leitura';
+        banner.style.cssText = 'width:100%;text-align:center;padding:10px;background:#e8f5e9;color:#2e7d32;font-weight:700;font-size:13px;border-radius:6px;border:1px solid #a5d6a7;margin-bottom:8px;';
+        container.querySelector('.form-header').insertAdjacentElement('afterend', banner);
+      }
+      // Parar auto-save
+      clearTimeout(autoSaveTimer);
+    }
+
+    function unlockForm(formId) {
+      isFormLocked = false;
+      const container = document.getElementById('form-' + formId);
+      container.querySelectorAll('input, textarea, select').forEach(el => {
+        el.disabled = false;
+        el.style.opacity = '';
+        el.style.cursor = '';
+      });
+      container.querySelectorAll('.photo-upload-label').forEach(el => {
+        el.style.display = '';
+      });
+      container.querySelectorAll('.remove-photo').forEach(el => {
+        el.style.display = '';
+      });
+      container.querySelectorAll('.btn-save, .btn-finalizar, .btn-reset').forEach(el => {
+        el.style.display = '';
+      });
+      const banner = container.querySelector('.locked-banner');
+      if (banner) banner.remove();
+    }
+
     // ── Finalizar formulário ──────────────────────────────────────────────────
     async function finalizarFormulario(btn) {
       if (!currentFormType) {
         alert('Nenhum formulário ativo para finalizar.');
         return;
       }
-      const confirma = confirm('Deseja realmente FINALIZAR este formulário?\n\nApós finalizado, o status será alterado para "Concluído" e os dados serão salvos definitivamente.');
+      const confirma = confirm('Deseja realmente FINALIZAR este formulário?\n\nApós finalizado, o status será alterado para "Concluído" e os campos ficarão bloqueados para edição.');
       if (!confirma) return;
 
       clearTimeout(autoSaveTimer);
@@ -3211,9 +3343,8 @@
           data: formData
         }, { merge: true });
         setStatus('✔ Concluído', 'concluido');
-        saveToLocalHistory(currentSessionId, currentFormType);
-        btn.innerHTML = '✅ Finalizado!';
-        setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 3000);
+        saveToLocalHistory(currentSessionId, currentFormType, 'concluido');
+        lockForm(currentFormType);
       } catch (e) {
         console.error('Erro ao finalizar:', e);
         btn.innerHTML = '❌ Erro!';
@@ -3222,10 +3353,16 @@
     }
 
     // ── Local history (last 10 sessions) ─────────────────────────────────────
-    function saveToLocalHistory(sessionId, formType) {
+    function saveToLocalHistory(sessionId, formType, status) {
       let history = JSON.parse(localStorage.getItem('ate-history') || '[]');
       history = history.filter(h => h.id !== sessionId);
-      history.unshift({ id: sessionId, formType, formLabel: FORM_LABELS[formType], savedAt: new Date().toISOString() });
+      history.unshift({
+        id: sessionId,
+        formType,
+        formLabel: FORM_LABELS[formType],
+        status: status || 'em_andamento',
+        savedAt: new Date().toISOString()
+      });
       if (history.length > 10) history = history.slice(0, 10);
       localStorage.setItem('ate-history', JSON.stringify(history));
       renderHistory();
@@ -3241,9 +3378,12 @@
       }
       list.innerHTML = history.map(h => {
         const date = new Date(h.savedAt).toLocaleString('pt-BR');
+        const statusClass = h.status === 'concluido' ? 'concluido' : 'em-andamento';
+        const statusLabel = h.status === 'concluido' ? '✔ Concluído' : '✏ Em andamento';
         return `<div class="history-item">
-          <div>
-            <div class="hi-id">${h.id}</div>
+          <div class="hi-id">${h.id}</div>
+          <div class="hi-center">
+            <span class="hi-status ${statusClass}">${statusLabel}</span>
             <div class="hi-meta">${h.formLabel} &nbsp;·&nbsp; ${date}</div>
           </div>
           <div class="hi-btns">
@@ -3285,10 +3425,11 @@
           restoreFormData(session.formType, session.data || {});
           if (session.status === 'concluido') {
             setStatus('✔ Concluído', 'concluido');
+            lockForm(session.formType);
           } else {
             setStatus('Sessão carregada ✓', 'saved');
+            attachAutoSave(session.formType);
           }
-          attachAutoSave(session.formType);
         }, 300);
       } catch (e) {
         setStatus('Erro ao carregar', '');
@@ -3312,6 +3453,8 @@
     const _originalShowForm = showForm;
     showForm = function (formId) {
       _originalShowForm(formId);
+      // Desbloquear ao abrir novo formulário
+      if (isFormLocked) unlockForm(formId);
       // Only set up form type if not loading an existing session
       if (!currentSessionId || currentFormType !== formId) {
         currentSessionId = null;
