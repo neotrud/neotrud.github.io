@@ -659,13 +659,13 @@
       }
 
       .form-header {
-        background: #003d7a !important;
+        background: #00a651 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
 
       thead tr {
-        background: #003d7a !important;
+        background: #00a651 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
@@ -1211,7 +1211,7 @@
           <thead>
             <tr>
               <th>Nome do Responsável</th>
-              <th>CPF</th>
+              <th>Matrícula</th>
               <th>Função</th>
             </tr>
           </thead>
@@ -1221,7 +1221,7 @@
                   data-field="infra-resp-nome"></td>
               <td><input type="text"
                   style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;font-family:'IBM Plex Mono',monospace;"
-                  placeholder="000.000.000-00" data-field="infra-resp-cpf"></td>
+                  placeholder="Matrícula" data-field="infra-resp-cpf"></td>
               <td><input type="text" style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;"
                   data-field="infra-resp-funcao"></td>
             </tr>
@@ -1372,7 +1372,7 @@
           <thead>
             <tr>
               <th>Nome</th>
-              <th>CPF</th>
+              <th>Matrícula</th>
               <th>Cód. Crachá</th>
             </tr>
           </thead>
@@ -1382,7 +1382,7 @@
                   data-field="moto-nome1"></td>
               <td><input type="text"
                   style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;font-family:'IBM Plex Mono',monospace;"
-                  placeholder="000.000.000-00" data-field="moto-cpf1"></td>
+                  placeholder="Matrícula" data-field="moto-cpf1"></td>
               <td><input type="text" style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;"
                   data-field="moto-cracha1"></td>
             </tr>
@@ -1589,7 +1589,7 @@
           <thead>
             <tr>
               <th>Nome</th>
-              <th>CPF</th>
+              <th>Matrícula</th>
               <th>Função</th>
               <th>Cód. Crachá</th>
             </tr>
@@ -1600,7 +1600,7 @@
                   data-field="es2-nome1"></td>
               <td><input type="text"
                   style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;font-family:'IBM Plex Mono',monospace;"
-                  placeholder="000.000.000-00" data-field="es2-cpf1"></td>
+                  placeholder="Matrícula" data-field="es2-cpf1"></td>
               <td>Instalador</td>
               <td><input type="text" style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;"
                   data-field="es2-cracha1"></td>
@@ -1610,7 +1610,7 @@
                   data-field="es2-nome2"></td>
               <td><input type="text"
                   style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;font-family:'IBM Plex Mono',monospace;"
-                  placeholder="000.000.000-00" data-field="es2-cpf2"></td>
+                  placeholder="Matrícula" data-field="es2-cpf2"></td>
               <td>Instalador</td>
               <td><input type="text" style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;"
                   data-field="es2-cracha2"></td>
@@ -1620,7 +1620,7 @@
                   data-field="es2-nome3"></td>
               <td><input type="text"
                   style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;font-family:'IBM Plex Mono',monospace;"
-                  placeholder="000.000.000-00" data-field="es2-cpf3"></td>
+                  placeholder="Matrícula" data-field="es2-cpf3"></td>
               <td>Instalador</td>
               <td><input type="text" style="width:100%;border:1px solid #ddd;padding:4px 6px;border-radius:3px;"
                   data-field="es2-cracha3"></td>
@@ -1688,7 +1688,7 @@
         </div>
         <div class="grid g2" style="margin-bottom:14px;">
           <div class="field"><label>Nome do Motorista</label><input type="text" data-field="es2-motorista"></div>
-          <div class="field"><label>CPF do Motorista</label><input type="text" placeholder="000.000.000-00"
+          <div class="field"><label>Matrícula do Motorista</label><input type="text" placeholder="Matrícula"
               data-field="es2-cpf-mot"></div>
         </div>
         <div class="grid g4" style="margin-bottom:14px;">
@@ -2163,6 +2163,14 @@
     </div>
 
   </div><!-- /page-wrapper -->
+
+  <style>
+    @media print {
+      :root {
+        --cemig-blue: #00a651 !important;
+      }
+    }
+  </style>
 
   <script>
     // ════════════════════════════════════════════════════════
@@ -2686,14 +2694,22 @@
       document.getElementById('export-overlay').classList.remove('active');
     }
 
-    function exportPDF() {
+    function validateFormNC(formId) {
+      if (formId !== 'infra' && !document.getElementById('form-infra').classList.contains('hidden') === false) {
+        return true;
+      }
       const visibleComments = document.querySelectorAll('#form-infra .nc-comment.visible textarea');
       const empty = Array.from(visibleComments).filter(t => !t.value.trim());
       if (empty.length > 0) {
         empty[0].focus();
-        alert('Preencha o comentário para todos os itens marcados como NC antes de exportar o PDF.');
-        return;
+        alert('O preenchimento da observação é OBRIGATÓRIO para todos os itens marcados como NC (Não Conforme). Verifique e preencha antes de prosseguir.');
+        return false;
       }
+      return true;
+    }
+
+    function exportPDF() {
+      if (!validateFormNC(currentFormType)) return;
       showExportOverlay('Gerando PDF... Aguarde.');
       setTimeout(() => {
         window.print();
@@ -2705,6 +2721,7 @@
     // EXPORT EXCEL
     // ════════════════════════════════════════════════════════
     function exportExcel(formId) {
+      if (!validateFormNC(formId)) return;
       showExportOverlay('Gerando planilha Excel... Aguarde.');
       setTimeout(() => {
         try {
@@ -2756,7 +2773,7 @@
         [''],
         ['RESPONSÁVEL'],
         ['Nome', getVal('[data-field="infra-resp-nome"]')],
-        ['CPF', getVal('[data-field="infra-resp-cpf"]')],
+        ['Matrícula', getVal('[data-field="infra-resp-cpf"]')],
         ['Função', getVal('[data-field="infra-resp-funcao"]')],
         [''],
         ['AGENTES EXECUTORES'],
@@ -3293,6 +3310,7 @@
         alert('Nenhum formulário ativo para salvar.');
         return;
       }
+      if (!validateFormNC(currentFormType)) return;
       clearTimeout(autoSaveTimer);
       const originalText = btn.innerHTML;
       btn.innerHTML = '⏳ Salvando...';
@@ -3372,6 +3390,7 @@
         alert('Nenhum formulário ativo para finalizar.');
         return;
       }
+      if (!validateFormNC(currentFormType)) return;
       const confirma = confirm('Deseja realmente FINALIZAR este formulário?\n\nApós finalizado, o status será alterado para "Concluído" e os campos ficarão bloqueados para edição.');
       if (!confirma) return;
 
@@ -3442,17 +3461,9 @@
           </div>
           <div class="hi-btns">
             <button class="resume" onclick="loadSession('${h.id}')">▶ Retomar</button>
-            <button onclick="removeFromHistory('${h.id}')">✕</button>
           </div>
         </div>`;
       }).join('');
-    }
-
-    function removeFromHistory(sessionId) {
-      let history = JSON.parse(localStorage.getItem('ate-history') || '[]');
-      history = history.filter(h => h.id !== sessionId);
-      localStorage.setItem('ate-history', JSON.stringify(history));
-      renderHistory();
     }
 
     // ── Resume session ────────────────────────────────────────────────────────
@@ -3467,7 +3478,15 @@
       try {
         setStatus('Carregando...', 'saving');
         const doc = await db.collection('formularios-ate').doc(sessionId).get();
-        if (!doc.exists) { alert('Sessão não encontrada. Verifique o ID e tente novamente.'); return; }
+        if (!doc.exists) {
+          alert('Sessão não encontrada na base de dados. Ela pode ter sido excluída.');
+          setStatus('Sessão inexistente', '');
+          let history = JSON.parse(localStorage.getItem('ate-history') || '[]');
+          history = history.filter(h => h.id !== sessionId);
+          localStorage.setItem('ate-history', JSON.stringify(history));
+          renderHistory();
+          return;
+        }
         const session = doc.data();
         currentSessionId = sessionId;
         currentFormType = session.formType;
