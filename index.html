@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -861,6 +862,15 @@
       color: var(--ok);
     }
 
+    .session-bar .session-status.concluido {
+      color: white;
+      background: #2e7d32;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
     .session-bar .session-copy {
       background: none;
       border: 1px solid var(--cemig-light);
@@ -993,6 +1003,76 @@
 
     .btn-save:hover {
       background: #1565c0;
+    }
+
+    .btn-finalizar {
+      background: #2e7d32;
+      color: white;
+    }
+
+    .btn-finalizar:hover {
+      background: #1b5e20;
+    }
+
+    /* ── EXPORT OVERLAY ── */
+    .export-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .export-overlay.active {
+      display: flex;
+    }
+
+    .export-overlay-box {
+      background: white;
+      border-radius: 12px;
+      padding: 40px 48px;
+      text-align: center;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+      max-width: 360px;
+      width: 90%;
+    }
+
+    .export-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid #e0e6ed;
+      border-top: 4px solid var(--cemig-blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .export-overlay-box h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .export-overlay-box p {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    @media print {
+      .export-overlay {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -1171,6 +1251,7 @@
         </div>
         <div class="btn-bar-right">
           <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
+          <button class="btn btn-finalizar" onclick="finalizarFormulario(this)">✅ Finalizar</button>
           <button class="btn btn-excel" onclick="exportExcel('infra')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -1320,6 +1401,24 @@
           <div class="field"><label>Marca</label><input type="text" data-field="moto-marca"></div>
           <div class="field"><label>Ano de Fabricação</label><input type="text" data-field="moto-ano"></div>
         </div>
+        <div class="grid g2" style="margin-bottom:14px;">
+          <div class="field">
+            <label>Veículo Próprio</label>
+            <select data-field="moto-veiculo-proprio">
+              <option value="">Selecione...</option>
+              <option value="Sim">Sim</option>
+              <option value="Não">Não</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Veículo Locado</label>
+            <select data-field="moto-veiculo-locado">
+              <option value="">Selecione...</option>
+              <option value="Sim">Sim</option>
+              <option value="Não">Não</option>
+            </select>
+          </div>
+        </div>
 
         <div class="section-title" style="margin-top:12px;">Check-list de Verificação</div>
         <p style="font-size:11px;color:var(--text-light);margin-bottom:10px;">Marque apenas se estiver conforme.</p>
@@ -1369,6 +1468,7 @@
         </div>
         <div class="btn-bar-right">
           <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
+          <button class="btn btn-finalizar" onclick="finalizarFormulario(this)">✅ Finalizar</button>
           <button class="btn btn-excel" onclick="exportExcel('moto')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -1637,6 +1737,7 @@
         </div>
         <div class="btn-bar-right">
           <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
+          <button class="btn btn-finalizar" onclick="finalizarFormulario(this)">✅ Finalizar</button>
           <button class="btn btn-excel" onclick="exportExcel('es2')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -1991,6 +2092,7 @@
         </div>
         <div class="btn-bar-right">
           <button class="btn btn-save" onclick="saveManual(this)">💾 Salvar</button>
+          <button class="btn btn-finalizar" onclick="finalizarFormulario(this)">✅ Finalizar</button>
           <button class="btn btn-excel" onclick="exportExcel('amb')">📊 Exportar Excel</button>
           <button class="btn btn-pdf" onclick="exportPDF()">📄 Exportar PDF</button>
         </div>
@@ -2101,7 +2203,6 @@
     ];
 
     const motoChecklistVeiculo = [
-      "Veículo próprio / Veículo locado",
       "Documentação atualizada",
       "Controle de manutenção (físico ou digital)",
       "Câmera veicular",
@@ -2474,6 +2575,17 @@
     // ════════════════════════════════════════════════════════
     // EXPORT PDF
     // ════════════════════════════════════════════════════════
+    function showExportOverlay(msg) {
+      const overlay = document.getElementById('export-overlay');
+      const text = document.getElementById('export-overlay-text');
+      if (text) text.textContent = msg || 'Preparando exportação...';
+      overlay.classList.add('active');
+    }
+
+    function hideExportOverlay() {
+      document.getElementById('export-overlay').classList.remove('active');
+    }
+
     function exportPDF() {
       const visibleComments = document.querySelectorAll('#form-infra .nc-comment.visible textarea');
       const empty = Array.from(visibleComments).filter(t => !t.value.trim());
@@ -2482,28 +2594,42 @@
         alert('Preencha o comentário para todos os itens marcados como NC antes de exportar o PDF.');
         return;
       }
-      window.print();
+      showExportOverlay('Gerando PDF... Aguarde.');
+      setTimeout(() => {
+        window.print();
+        hideExportOverlay();
+      }, 600);
     }
 
     // ════════════════════════════════════════════════════════
     // EXPORT EXCEL
     // ════════════════════════════════════════════════════════
     function exportExcel(formId) {
-      const wb = XLSX.utils.book_new();
-      const today = new Date().toLocaleDateString('pt-BR');
+      showExportOverlay('Gerando planilha Excel... Aguarde.');
+      setTimeout(() => {
+        try {
+          const wb = XLSX.utils.book_new();
+          const today = new Date().toLocaleDateString('pt-BR');
 
-      if (formId === 'infra') {
-        exportInfraExcel(wb, today);
-      } else if (formId === 'moto') {
-        exportMotoExcel(wb, today);
-      } else if (formId === 'es2') {
-        exportES2Excel(wb, today);
-      } else if (formId === 'amb') {
-        exportAmbExcel(wb, today);
-      }
+          if (formId === 'infra') {
+            exportInfraExcel(wb, today);
+          } else if (formId === 'moto') {
+            exportMotoExcel(wb, today);
+          } else if (formId === 'es2') {
+            exportES2Excel(wb, today);
+          } else if (formId === 'amb') {
+            exportAmbExcel(wb, today);
+          }
 
-      const formNames = { infra: 'Infraestrutura', moto: 'Motociclistas', es2: 'Multifuncional_ES2', amb: 'Ambiental' };
-      XLSX.writeFile(wb, `ATE_${formNames[formId]}_${today.replace(/\//g, '-')}.xlsx`);
+          const formNames = { infra: 'Infraestrutura', moto: 'Motociclistas', es2: 'Multifuncional_ES2', amb: 'Ambiental' };
+          XLSX.writeFile(wb, `ATE_${formNames[formId]}_${today.replace(/\//g, '-')}.xlsx`);
+        } catch (e) {
+          console.error('Erro na exportação:', e);
+          alert('Ocorreu um erro durante a exportação. Tente novamente.');
+        } finally {
+          hideExportOverlay();
+        }
+      }, 400);
     }
 
     function getVal(selector) {
@@ -2574,6 +2700,8 @@
         ['Modelo', getVal('[data-field="moto-modelo"]')],
         ['Marca', getVal('[data-field="moto-marca"]')],
         ['Ano', getVal('[data-field="moto-ano"]')],
+        ['Veículo Próprio', getVal('[data-field="moto-veiculo-proprio"]')],
+        ['Veículo Locado', getVal('[data-field="moto-veiculo-locado"]')],
         [''],
         ['Observações Ferramentas', getVal('[data-field="moto-obs-ferr"]')],
         ['Observações Veículo', getVal('[data-field="moto-obs-veic"]')],
@@ -3052,6 +3180,47 @@
       }
     }
 
+    // ── Finalizar formulário ──────────────────────────────────────────────────
+    async function finalizarFormulario(btn) {
+      if (!currentFormType) {
+        alert('Nenhum formulário ativo para finalizar.');
+        return;
+      }
+      const confirma = confirm('Deseja realmente FINALIZAR este formulário?\n\nApós finalizado, o status será alterado para "Concluído" e os dados serão salvos definitivamente.');
+      if (!confirma) return;
+
+      clearTimeout(autoSaveTimer);
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '⏳ Finalizando...';
+      btn.disabled = true;
+
+      try {
+        await initSessionIfNeeded();
+        const formData = collectFormData(currentFormType);
+        const dataStr = JSON.stringify(formData);
+        const sizeKB = Math.round(dataStr.length / 1024);
+        if (sizeKB > 900) {
+          console.warn(`Aviso: documento com ~${sizeKB}KB. Limite do Firestore é 1MB.`);
+        }
+        await db.collection('formularios-ate').doc(currentSessionId).set({
+          formType: currentFormType,
+          formLabel: FORM_LABELS[currentFormType],
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          finalizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+          status: 'concluido',
+          data: formData
+        }, { merge: true });
+        setStatus('✔ Concluído', 'concluido');
+        saveToLocalHistory(currentSessionId, currentFormType);
+        btn.innerHTML = '✅ Finalizado!';
+        setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 3000);
+      } catch (e) {
+        console.error('Erro ao finalizar:', e);
+        btn.innerHTML = '❌ Erro!';
+        setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 2000);
+      }
+    }
+
     // ── Local history (last 10 sessions) ─────────────────────────────────────
     function saveToLocalHistory(sessionId, formType) {
       let history = JSON.parse(localStorage.getItem('ate-history') || '[]');
@@ -3114,7 +3283,11 @@
         // Restore after a tick (so rendered tables are in DOM)
         setTimeout(() => {
           restoreFormData(session.formType, session.data || {});
-          setStatus('Sessão carregada ✓', 'saved');
+          if (session.status === 'concluido') {
+            setStatus('✔ Concluído', 'concluido');
+          } else {
+            setStatus('Sessão carregada ✓', 'saved');
+          }
           attachAutoSave(session.formType);
         }, 300);
       } catch (e) {
@@ -3152,6 +3325,17 @@
     // ── Init history on load ──────────────────────────────────────────────────
     window.addEventListener('DOMContentLoaded', renderHistory);
   </script>
+
+  <!-- EXPORT OVERLAY -->
+  <div id="export-overlay" class="export-overlay">
+    <div class="export-overlay-box">
+      <div class="export-spinner"></div>
+      <h3>Exportando...</h3>
+      <p id="export-overlay-text">Preparando exportação...</p>
+      <p style="margin-top:12px;font-size:11px;color:#999;">Não feche esta página até concluir.</p>
+    </div>
+  </div>
+
 </body>
 
 </html>
